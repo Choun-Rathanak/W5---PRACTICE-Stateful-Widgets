@@ -9,28 +9,56 @@ List<String> images = [
 ];
 
 void main() => runApp(MaterialApp(
-      debugShowCheckedModeBanner: false, // Why this line ? Can you explain it ?
-      home: Scaffold(
-        backgroundColor: Colors.green[50],
-        appBar: AppBar(
-          backgroundColor: Colors.green[400],
-          title: const Text('Image viewer'),
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.navigate_before),
-              tooltip: 'Go to the previous image',
-              onPressed: () => {},
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 50, 0),
-              child: IconButton(
-                icon: const Icon(Icons.navigate_next),
-                tooltip: 'Go to the next image',
-                onPressed: () => {},
-              ),
-            ),
-          ],
-        ),
-        body: Image.asset(images[0]),
-      ),
+      debugShowCheckedModeBanner: false,
+      home: ImageViewer(),
     ));
+
+class ImageViewer extends StatefulWidget {
+  @override
+  State<ImageViewer> createState() => _ImageViewerState();
+}
+
+class _ImageViewerState extends State<ImageViewer> {
+  int currentIndex = 0;
+
+  void showPrevious() {
+    setState(() {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+    });
+  }
+
+  void showNext() {
+    setState(() {
+      currentIndex = (currentIndex + 1) % images.length;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.green[50],
+      appBar: AppBar(
+        backgroundColor: Colors.green[400],
+        title: const Text('Image viewer'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.navigate_before),
+            tooltip: 'Go to the previous image',
+            onPressed: showPrevious,
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 50, 0),
+            child: IconButton(
+              icon: const Icon(Icons.navigate_next),
+              tooltip: 'Go to the next image',
+              onPressed: showNext,
+            ),
+          ),
+        ],
+      ),
+      body: Center(
+        child: Image.asset(images[currentIndex]),
+      ),
+    );
+  }
+}

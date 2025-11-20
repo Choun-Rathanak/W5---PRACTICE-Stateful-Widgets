@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
 class ScoreList extends StatelessWidget {
   const ScoreList({super.key});
 
@@ -51,7 +52,7 @@ class ScoreCard extends StatefulWidget {
 }
 
 class _ScoreCardState extends State<ScoreCard> {
-  int score = 5;
+  int score = 3;
 
   void increaseScore() {
     setState(() {

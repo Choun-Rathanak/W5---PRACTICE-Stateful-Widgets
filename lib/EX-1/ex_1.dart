@@ -9,6 +9,12 @@ class CustomButton extends StatefulWidget {
 
 class _CustomButtonState extends State<CustomButton> {
   bool isSelected = false;
+    
+    onclick() {
+    setState(() {
+      isSelected = !isSelected;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +25,7 @@ class _CustomButtonState extends State<CustomButton> {
         style: ElevatedButton.styleFrom(
           backgroundColor: isSelected ? Colors.blue[500]: Colors.blue[50],
         ),
-        onPressed: () {
-          setState(() {
-            isSelected = !isSelected;
-          });
-        },
+        onPressed: onclick,
         child: Center(
           child: Text(
             isSelected ? "Selected"  : "Not Selected",
